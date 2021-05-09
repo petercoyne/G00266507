@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-select (ionChange)="setListings()" placeholder="Select County" [(ngModel)]="county">
+      <ion-select-option value="Galway">Galway</ion-select-option>
+      <ion-select-option value="Mayo">Mayo</ion-select-option>
+    </ion-select>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="toggleMap()">
+        <ion-icon slot="icon-only" name="map"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar>
+        <ion-tab-button [selected]="isSelected(1)" (click)="setRecordType(1)">
+          <ion-icon name="people"></ion-icon>
+          <ion-label>Activities</ion-label>
+        </ion-tab-button>
+    
+        <ion-tab-button [selected]="isSelected(2)" (click)="setRecordType(2)">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>Accommodation</ion-label>
+        </ion-tab-button>
+    
+        <ion-tab-button [selected]="isSelected(3)" (click)="setRecordType(3)">
+          <ion-icon name="compass"></ion-icon>
+          <ion-label>POI</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="mapID" style="width: 100%; height: 250px;"></div>
+
+    <ion-list>
+      <ion-item *ngFor="let result of Results">
+        <ion-label>
+          <h2>{{ result.name }}</h2>
+          <h3>{{ result.address.addressLocality }}</h3>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block">Find Listings</ion-button>
+
+</ion-content>
+
+<!-- <ion-footer>
+  <p>Test</p>
+  <ion-tabs>
+    <ion-tab-bar>
+      <ion-tab-button [selected]="isSelected(1)" (click)="setRecordType(1)">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Activities</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button [selected]="isSelected(2)" (click)="setRecordType(2)">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Accommodation</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button [selected]="isSelected(3)" (click)="setRecordType(3)">
+        <ion-icon name="compass"></ion-icon>
+        <ion-label>POI</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button (click)="updateListings()">
+        <ion-icon name="refresh"></ion-icon>
+        <ion-label>Reload Listings</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-footer> -->
