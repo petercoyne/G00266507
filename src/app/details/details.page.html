@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{detail.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>in {{detail.address.addressLocality}}</ion-card-subtitle>
+      <ion-card-title>{{detail.name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <h3>{{detail.telephone}}</h3>
+      <h4><a href="{{detail.url}}">{{detail.url}}</a></h4>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
