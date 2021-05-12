@@ -79,10 +79,12 @@ export class HomePage implements OnInit {
     this.GPS();
   }
 
+  // one of the later lifecycle hooks
   ngAfterViewChecked() {
     this.map.invalidateSize(); // map doesn't detect size initially, need to trigger the resize function
   }
 
+  // should maybe clean up the map here
   ngOnDestroy() {
 
   }
