@@ -64,7 +64,7 @@ export class HomePage implements OnInit {
     if (this.activeID == i) {
       this.activeID = -1;
       let group = new Leaflet.featureGroup(this.markers)
-      this.map.fitBounds(group.getBounds());
+      this.map.flyToBounds(group.getBounds());
     } else {
       this.activeID = i;
       this.zoomTo(result.geo.latitude, result.geo.longitude);
@@ -72,7 +72,7 @@ export class HomePage implements OnInit {
   }
 
   zoomTo(lat, lng) {
-    this.map.setView([lat, lng], 14);
+    this.map.flyTo([lat, lng], 14);
   }
 
   setListings() {
