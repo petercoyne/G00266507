@@ -1,4 +1,4 @@
-# Mobile Apps Project
-### Adventure Ireland
+#### MOBILE APPS PROJECT
+# Adventure Ireland
 
-See [https://github.com/petercoyne/G00266507/wiki](wiki) for full documentation.
+See [wiki](https://github.com/petercoyne/G00266507/wiki) for full documentation.
