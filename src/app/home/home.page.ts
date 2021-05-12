@@ -5,6 +5,8 @@ import { NavController } from '@ionic/angular';
 import { default as Counties } from '../counties'; // import list of counties
 
 import * as Leaflet from 'leaflet';
+import { icon, Marker } from 'leaflet';
+
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
@@ -46,6 +48,23 @@ export class HomePage implements OnInit {
     .catch(()=>{
       console.log("Something went wrong in get recordType");
     });
+
+    // Bugfix for Leaflet marker urls https://stackoverflow.com/questions/41144319/leaflet-marker-not-found-production-env
+    const iconRetinaUrl = 'assets/marker-icon-2x.png';
+    const iconUrl = 'assets/marker-icon.png';
+    const shadowUrl = 'assets/marker-shadow.png';
+    const iconDefault = icon({
+      iconRetinaUrl,
+      iconUrl,
+      shadowUrl,
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      tooltipAnchor: [16, -28], 
+      shadowSize: [41, 41]
+    });
+    Marker.prototype.options.icon = iconDefault;
+    // end bugfix
 
     this.updateListings();
     this.leafletMap();
