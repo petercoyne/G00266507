@@ -3,20 +3,53 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{detail.name}}</ion-title>
+    <ion-title>Technical Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>in {{detail.address.addressLocality}}</ion-card-subtitle>
-      <ion-card-title>{{detail.name}}</ion-card-title>
+      <ion-card-subtitle>HTTP API</ion-card-subtitle>
+      <ion-card-title>Failte Ireland</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
-      <h3>{{detail.telephone}}</h3>
-      <h4><a href="{{detail.url}}">{{detail.url}}</a></h4>
+      <p>The app queries one of three Failte Ireland API endpoints, depending on the type of resource requested.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Map library</ion-card-subtitle>
+      <ion-card-title>Leaflet/MapBox</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>Leaflet is an open source javascript library for mobile-friendly interactive maps.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Ionic Native Plugin</ion-card-subtitle>
+      <ion-card-title>Geolocation</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>The app uses the geolocation plugin to locate users on the map.</p>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Additional style system</ion-card-subtitle>
+      <ion-card-title>TailwindCSS</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>In addition to ionic components, Tailwind was used to create some custom layouts.</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
   county:string;
   recordType:number;
   activeID:number;
+  loading:boolean;
 
   map:Leaflet.Map;
   markers = [];
@@ -87,6 +88,7 @@ export class HomePage implements OnInit {
 
   updateListings() {
     if (this.county && this.recordType) {
+      this.loading = true;
       this.opendata.GetData(this.county, this.recordType).subscribe(
         (data)=>{
           this.Results = data.results;
@@ -94,6 +96,7 @@ export class HomePage implements OnInit {
           this.placeMarkers(this.Results);
           this.map.invalidateSize();
           this.activeID = -1;
+          this.loading = false;
         }
       )
     }

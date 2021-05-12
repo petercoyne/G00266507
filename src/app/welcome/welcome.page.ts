@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomePage implements OnInit {
 
-  constructor() { }
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  openApp() {
+    this.navCtrl.navigateForward('/home');
+  }
+
+  openAbout() {
+    this.navCtrl.navigateForward('/about');
+  }
+
+  openDetails() {
+    this.navCtrl.navigateForward('/details');
   }
 
 }

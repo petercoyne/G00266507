@@ -1,9 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>welcome</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<div class="bg-black text-white max-w-screen-sm">
+  <img src="assets/logo-bg.png">
+  <div class="m-4 bg-gray-800 rounded-3xl overflow-hidden">
+    <div class="bg-gray-600 rounded-3xl p-4">
+      <p class="p-4 text-2xl font-bold text-gray-300">Welcome, adventurer.</p>
+      <p class="px-4 text-sm pb-3 mb-2 text-gray-400">This app allows you to browse activities, accommodation and points of interest across the Republic of Ireland.</p>
+      <!-- <p class="px-4 text-sm pb-4 text-gray-400">Tap on items in the list to see their location and contact details.</p> -->
+      <a class="block m-4 px-8 py-4 bg-gray-200 rounded-2xl text-gray-600 text-center font-bold cursor-pointer hover:bg-blue-200 active:bg-blue-400 transition-colors" (click)="openApp()">Let's Go!</a>
+    </div>
+    <div class="p-4">
+      <a class="flex items-center" (click)="openAbout()">
+        <svg class="w-6 h-6 m-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+        About the developer</a>
+      <a class="flex items-center" (click)="openDetails()">
+        <svg class="w-6 h-6 m-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+        Technical details</a>
+    </div>
+  </div>
+</div>
