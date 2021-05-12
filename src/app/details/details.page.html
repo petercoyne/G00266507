@@ -7,6 +7,8 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- this page uses standard ionic components -->
+
 <ion-content>
   <ion-card>
     <ion-card-header>
@@ -22,7 +24,7 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>Map library</ion-card-subtitle>
-      <ion-card-title>Leaflet/MapBox</ion-card-title>
+      <ion-card-title>Leaflet</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
@@ -60,7 +62,10 @@
     </ion-card-header>
   
     <ion-card-content>
-      <p>In addition to ionic components, Tailwind was used to create some custom layouts.</p>
+      <p style="display: block; margin-bottom: 8px">The app was built using the Ionic CLI, using Angular as the framework, and attempts to follow the submission guidelines.</p>
+      <p style="display: block; margin-bottom: 8px">It additionally integrates a MapBox map using the Leaflet javascript library, which displays results from a Failte Ireland API. The API functionality is housed in an Angular service. Placing markers and flying to different locations is handled in typescript or javascript using the Leaflet API. Data flows unidirectionally from the list to the map... it could be further improved by adding click bindings to the map markers, so that the list would update when a marker was tapped.</p>
+      <p style="display: block; margin-bottom: 8px">Tailwind CSS was used in places as I find it easier to work with than regular CSS/SCSS. It may appear to clutter the markup but I think the tradeoff is worth it.</p>
+      <p style="display: block; margin-bottom: 8px">For more information see code comments.</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

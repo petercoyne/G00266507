@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { default as Counties } from '../counties'; // import list of counties
 
-import * as Leaflet from 'leaflet';
+import * as Leaflet from 'leaflet'; // Leaflet is our maps library
 import { icon, Marker } from 'leaflet';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -17,22 +17,25 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 })
 export class HomePage implements OnInit {
 
-  counties = Counties; // assign counties array to variable
+  counties = Counties; // assign imported counties array to variable
 
-  Results:any = [];
-  county:string;
-  recordType:number;
-  activeID:number;
-  loading:boolean;
+  Results:any = []; // array to house our API results
+  county:string; // active county
+  recordType:number; // active tab
+  activeID:number; // active item in results
+  loading:boolean; // is the page waiting on API call?
 
   map:Leaflet.Map;
-  markers = [];
-  lat:any;
-  lon:any;
+  markers = []; // array for the active set of map markers
+  lat:any; // latitude of user
+  lon:any; // longitude of user
 
+  // using OpenData
   constructor(private opendata:OpendataService, private storage:Storage, public navCtrl: NavController, private geolocation: Geolocation) {}
 
   ngOnInit() {
+
+    // fetching last selected county from storage
     this.storage.get("county")
     .then((data)=>{
       this.county = data;
@@ -41,6 +44,7 @@ export class HomePage implements OnInit {
       console.log("Something went wrong in get county");
     });
     
+    // fetching active tab from storage
     this.storage.get("recordType")
     .then((data)=>{
       this.recordType = data;
@@ -66,8 +70,12 @@ export class HomePage implements OnInit {
     Marker.prototype.options.icon = iconDefault;
     // end bugfix
 
-    this.updateListings();
+    // updateListings will not fire before storage call returns, could use two ready variables and a timer maybe?
+    // this.updateListings();
+
+    // init map 
     this.leafletMap();
+    // place user on map
     this.GPS();
   }
 
@@ -79,12 +87,13 @@ export class HomePage implements OnInit {
 
   }
 
-  toggleDetails(i, result) {
-    if (this.activeID == i) {
-      this.activeID = -1;
-      let group = new Leaflet.featureGroup(this.markers)
-      this.map.flyToBounds(group.getBounds());
-    } else {
+  // called when user taps on an item in the list
+  toggleDetails(i, result) { // i is position in array, result is a result object
+    if (this.activeID == i) { // user tapped on the active item
+      this.activeID = -1; // unset active item
+      let group = new Leaflet.featureGroup(this.markers) // grab the previous county markers
+      this.map.flyToBounds(group.getBounds()); // fly to encompass them
+    } else { // else we tapped on an inactive item
       this.activeID = i;
       this.zoomTo(result.geo.latitude, result.geo.longitude);
     }
@@ -94,39 +103,45 @@ export class HomePage implements OnInit {
     this.map.flyTo([lat, lng], 14);
   }
 
+  // user selected a county
   setListings() {
     this.storage.set("county",this.county);
     this.storage.set("recordType",this.recordType);
     this.updateListings();
   }
 
+  // user selected a tab
   setRecordType(record: number) {
     this.recordType = record;
+    this.storage.set("recordType",this.recordType);
     this.setListings();
   }
 
+  // called on changing county or tab
   updateListings() {
-    if (this.county && this.recordType) {
-      this.loading = true;
-      this.opendata.GetData(this.county, this.recordType).subscribe(
+    if (this.county && this.recordType) { // make sure we have a valid county and tab
+      this.loading = true; // display our loading spinner
+      this.opendata.GetData(this.county, this.recordType).subscribe( // using our service to get data from API
         (data)=>{
           this.Results = data.results;
-          console.log(this.Results);
-          this.placeMarkers(this.Results);
-          this.map.invalidateSize();
-          this.activeID = -1;
-          this.loading = false;
+          this.placeMarkers(this.Results); // place markers on map
+          this.map.invalidateSize(); // recheck map size just in case
+          this.activeID = -1; // reset active list item
+          this.loading = false; // loading is done
         }
       )
     }
   }
 
   placeMarkers(results) {
+    // clear out the old markers
     this.markers.forEach((marker) => {
       this.map.removeLayer(marker);
       marker.remove();
     });
     this.markers = [];
+
+    // iterate through results, place markers at coordinates, add to map, and add to markers array
     results.forEach(result => {
       this.markers.push(Leaflet.marker([result.geo.latitude, result.geo.longitude]).addTo(this.map));
     });
@@ -145,8 +160,11 @@ export class HomePage implements OnInit {
   }
 
   leafletMap() {
+
+    // init map of ireland
     this.map = Leaflet.map('mapID').setView([53.1424, -7.6921], 6);
 
+    // attribution
     Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
@@ -154,12 +172,6 @@ export class HomePage implements OnInit {
     // Leaflet.marker([53.1424, -7.6921]).addTo(this.map)
     //     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     //     .openPopup();
-  }
-
-  viewDetails(result) {
-    console.log(result);
-    this.storage.set("details",JSON.stringify(result));
-    this.navCtrl.navigateForward('/details')
   }
 
   GPS() {

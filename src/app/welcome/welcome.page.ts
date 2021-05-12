@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -6,12 +6,11 @@ import { NavController } from '@ionic/angular';
   templateUrl: './welcome.page.html',
   styleUrls: ['./welcome.page.scss'],
 })
-export class WelcomePage implements OnInit {
+export class WelcomePage {
+
+  // Very simple script, see home.page.ts for the meat of the app
 
   constructor(public navCtrl: NavController) { }
-
-  ngOnInit() {
-  }
 
   openApp() {
     this.navCtrl.navigateForward('/home');

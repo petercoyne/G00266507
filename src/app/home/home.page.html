@@ -1,3 +1,5 @@
+<!-- Standard Ionic header with back button -->
+
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,15 +10,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- div for the map to be displayed in, with some hacky inline styling -->
   <div id="mapID" style="width: 100%; height: 250px; position: fixed; z-index: 10"></div>
 
+  <!-- if the data isn't loading, display the list  -->
   <ion-list *ngIf="!loading" style="margin-top: 250px;">
+
+    <!-- main list loop, "index as i" was new to me... used in the details panel for each item -->
     <ion-item *ngFor="let result of Results; index as i" (click)="toggleDetails(i, result)">
       <ion-label>
         <h2>{{ result.name }}</h2>
         <h3>{{ result.address.addressLocality }}</h3>
-        <div *ngIf="activeID == i" class="">
+
+        <!-- activeID is set by the toggleDetails() function above  -->
+        <div *ngIf="activeID == i">
           <a href="tel:{{ result.telephone }}" class="flex items-center">
+
+            <!-- inline svgs from heroicons.dev -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 m-2 flex-shrink-0" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -37,15 +47,21 @@
     </ion-item>
   </ion-list>
 
+  <!-- Loading spinner, the animate-spin class handles the rotation. again these are tailwind css utility classes -->
   <div *ngIf="loading" class="flex items-center justify-center p-8" style="margin-top: 280px;">
     <svg class="animate-spin w-12 h-12 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      <path class="opacity-75" fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+      </path>
     </svg>
   </div>
 
   <div class="p-4 text-sm">
-    <ion-button expand="block" *ngIf="county && recordType" (click)="updateListings()">Refresh Listings</ion-button>
+    <!-- sometimes the listings need a refresh to display -->
+    <ion-button expand="block" *ngIf="county && recordType && !loading" (click)="updateListings()">Refresh Listings
+    </ion-button>
+    <!-- text to make it obvious when something needs choosing in the footer. -->
     <p class="text-center" *ngIf="!county">Please select a county below.</p>
     <p class="text-center" *ngIf="!recordType">Select a listing type below.</p>
   </div>
@@ -56,12 +72,15 @@
 <ion-footer [translucent]="true">
   <hr />
   <ion-toolbar>
+    <!-- binding to ionChange event, trigger setListings(), which is based on the ngModel named county -->
     <ion-select (ionChange)="setListings()" placeholder="Select County" [(ngModel)]="county">
+      <!-- counties is retrieved from a json file, and corresponds with the name of the county in the Failte Ireland API -->
       <ion-select-option *ngFor="let countyName of counties" value="{{countyName}}">{{countyName}}</ion-select-option>
     </ion-select>
   </ion-toolbar>
   <ion-toolbar>
 
+    <!-- tabs, using simple functions to detect and set selected tab -->
     <ion-tab-bar>
       <ion-tab-button [selected]="isSelected(1)" (click)="setRecordType(1)">
         <ion-icon name="people"></ion-icon>
