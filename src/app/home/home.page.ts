@@ -115,8 +115,8 @@ export class HomePage implements OnInit {
   // user selected a tab
   setRecordType(record: number) {
     this.recordType = record;
-    this.storage.set("recordType",this.recordType);
-    this.setListings();
+    this.storage.set("recordType",record);
+    this.updateListings();
   }
 
   // called on changing county or tab

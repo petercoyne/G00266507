@@ -59,7 +59,7 @@
 
   <div class="p-4 text-sm">
     <!-- sometimes the listings need a refresh to display -->
-    <ion-button expand="block" *ngIf="county && recordType && !loading" (click)="updateListings()">Refresh Listings
+    <ion-button expand="block" *ngIf="county && recordType && !loading" (click)="updateListings()">Load Listings
     </ion-button>
     <!-- text to make it obvious when something needs choosing in the footer. -->
     <p class="text-center" *ngIf="!county">Please select a county below.</p>
